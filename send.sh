@@ -1,0 +1,1 @@
+scp internetStatusTracker-pi  pi@192.168.86.77:~/
