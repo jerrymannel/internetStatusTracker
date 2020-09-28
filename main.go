@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"net"
 	"os"
-	"os/exec"
 	"time"
 
 	"github.com/tatsushid/go-fastping"
@@ -26,7 +25,6 @@ type internetStatus struct {
 	Active    bool      `json:"active"`
 	Bandwidth string    `json:"bandwidth"`
 	Host      string    `json:"host"`
-	UpSince   string    `json:"upSinse"`
 }
 
 func main() {
@@ -50,10 +48,7 @@ func main() {
 	hostname, err := os.Hostname()
 	check(err)
 
-	upSince, err := exec.Command("uptime", "-s").Output()
-	check(err)
-
-	data := internetStatus{t, false, "NA", hostname, string(upSince)}
+	data := internetStatus{t, false, "NA", hostname}
 
 	p := fastping.NewPinger()
 	ra, err := net.ResolveIPAddr("ip4:icmp", *ipToPing)
